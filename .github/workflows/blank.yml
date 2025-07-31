@@ -31,36 +31,3 @@ jobs:
         run: |
           cd build/classes
           java Main
-name: Generate Main.class (no commit)
-
-on:
-  push:
-
-jobs:
-  build-class:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
-
-      - name: Compile Main.java -> Main.class
-        run: |
-          set -e
-          if [ -f Main.java ]; then
-            mkdir -p build/classes
-            javac -d build/classes Main.java
-            echo "✅ Main.class 생성 완료: build/classes 내부 확인!"
-          else
-            echo "ℹ️ Main.java 없음. 스킵합니다."
-          fi
-
-      - name: Run Main.class
-        run: |
-          cd build/classes
-          java Main
